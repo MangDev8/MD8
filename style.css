@@ -384,6 +384,7 @@ main { padding-bottom: 80px; }
   display: flex;
   flex-direction: column;
   margin: 10px;
+  text-align: center;
 }
 
 .brand-title {
@@ -392,6 +393,7 @@ main { padding-bottom: 80px; }
   color: #0f1b2d; 
   margin: 0;
   justify-content: center;
+  text-align: center;
 }
 
 .brand-sub {
@@ -399,6 +401,7 @@ main { padding-bottom: 80px; }
   font-weight: 500;
   color: #2d3a4a;
   margin-top: 10px;
+  text-align: center;
 }
 
 footer  {
