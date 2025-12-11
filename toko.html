@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mang-Dev8</title>
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="produk.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo-wrapper">
+      <h2 class="logo-text">Mang-Dev8</h2>
+    </div>
+
+    <div id="menu-icon" class="menu-icon">
+      <i data-feather="align-right"></i>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="hidden">
+    <ul>
+      <li><a href="#"><i data-feather="home"></i>Home</a></li>
+      <li><a href="post.html"><i data-feather="user"></i>Postingan</a></li>
+      <li><a href="media.html"><i data-feather="youtube"></i>Media</a></li>
+      <li><a href="#"><i data-feather="cpu"></i>My Project</a></li>
+      <li><a href="#"><i data-feather="link"></i>Project Link</a></li>
+      <li><a href="#"><i data-feather="info"></i>Info</a></li>
+    </ul>
+  </aside>
+
+  <!-- Konten -->
+  <main><div id="post-container"></div></main>
+
+  <!-- ================= PRODUK ================= -->
+  <div class="products" id="product-list"></div>
+
+  <!-- ================= POPUP ================== -->
+  <div class="popup-bg" id="popup">
+    <div class="popup-box">
+      
+      <!-- SLIDER -->
+      <div class="slider">
+        <div class="slides" id="slides"></div>
+
+        <button class="prev" onclick="prevSlide()">❮</button>
+        <button class="next" onclick="nextSlide()">❯</button>
+      </div>
+
+      <h3 id="pname"></h3>
+      <p id="pprice" style="color:#ff6000;font-weight:bold;"></p>
+      <p id="pdesc"></p>
+
+      <button id="plink" class="buy-btn">Kunjungi Link</button>
+      <button class="close-btn" onclick="closePopup()">Tutup</button>
+
+    </div>
+  </div>
+
+  <!-- ================= SCRIPT ================== -->
+  <script>
+    feather.replace();
+
+    // Sidebar toggle
+    const menuIcon = document.getElementById("menu-icon");
+    const sidebar = document.getElementById("sidebar");
+    menuIcon.addEventListener("click", () => sidebar.classList.toggle("hidden"));
+
+
+    // ================= POPUP DINAMIS =================
+    function openPopup(i) {
+      const p = products[i];
+
+      document.getElementById("pname").innerText = p.name;
+      document.getElementById("pprice").innerText = p.price;
+      document.getElementById("pdesc").innerText = p.desc;
+
+      // Link
+      document.getElementById("plink").onclick = () => window.open(p.link, "_blank");
+
+      // Images slider
+      const slides = document.getElementById("slides");
+      slides.innerHTML = "";
+      p.images.forEach(img => slides.innerHTML += `<img src="${img}">`);
+
+      index = 0;
+      showSlide();
+
+      document.getElementById("popup").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    // ================= SLIDER =================
+    let index = 0;
+
+    function showSlide() {
+      const slides = document.getElementById("slides");
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() {
+      const total = document.querySelectorAll("#slides img").length;
+      index = (index + 1) % total;
+      showSlide();
+    }
+
+    function prevSlide() {
+      const total = document.querySelectorAll("#slides img").length;
+      index = (index - 1 + total) % total;
+      showSlide();
+    }
+  </script>
+<script src="data-produk.js"></script>
+</body>
+</html>

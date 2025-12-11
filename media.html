@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="media.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <title>Video Style YouTube</title>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <h2 class="judul-section">Daftar Video</h2>
+    <nav>
+       <ul>
+   <li><a href="index.html">Kembali</a></li>
+ </ul>
+    </nav>
+    </div>
+  </header>
+
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+
+  <!-- DAFTAR VIDEO -->
+  <main class="content">
+    <div class="container-media" id="videoList"></div>
+  </main>
+
+  <!-- script -->
+<script>
+  async function loadVideos() {
+    try {
+      const res = await fetch("videos.json"); // ambil data JSON
+      const videos = await res.json();
+      const container = document.getElementById("videoList");
+      
+      // fungsi universal untuk ambil ID youtube
+      function extractVideoId(url) {
+        try {
+          const u = new URL(url);
+          
+          // kalau link youtu.be
+          if (u.hostname === "youtu.be") {
+            return u.pathname.slice(1).split("?")[0]; // ambil sebelum ?si=
+          }
+          
+          // kalau link youtube.com normal
+          if (u.hostname.includes("youtube.com")) {
+            if (u.searchParams.get("v")) {
+              return u.searchParams.get("v");
+            }
+            if (u.pathname.includes("/embed/")) {
+              return u.pathname.split("/embed/")[1].split("?")[0];
+            }
+          }
+          
+          return "";
+        } catch {
+          return "";
+        }
+      }
+      
+      videos.forEach(video => {
+        const videoId = extractVideoId(video.url);
+        if (!videoId) return; // skip kalau gagal parsing
+        
+        const card = document.createElement("div");
+        card.className = "video-card";
+        
+        card.innerHTML = `
+          <div class="video-thumb">
+            <iframe src="https://www.youtube.com/embed/${videoId}"
+                    frameborder="0"
+                    allowfullscreen
+                    loading="lazy"></iframe>
+          </div>
+          <div class="video-info">
+            <div class="video-channel">${video.channel}</div>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+      
+    } catch (err) {
+      console.error("Gagal load video:", err);
+    }
+  }
+  
+  loadVideos();
+  
+  
+  // bapak icon
+  feather.replace();
+</script>
+
+</body>
+</html>

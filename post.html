@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mang-Dev8</title>
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- Navbar Atas -->
+  <nav>
+    <div class="logo-wrapper">
+      <!-- Tambahkan logo di sini kalau mau -->
+      <!-- <img src="logo.png" alt="Logo" class="logo" /> -->
+      <h2 class="logo-text">Postingan</h2>
+    </div>
+
+    <!-- Menu Icon untuk toggle sidebar -->
+    <div id="menu-icon" class="menu-icon">
+      <i data-feather="align-right"></i>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="hidden">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">PLTS</a></li>
+      <li><a href="#">Media</a></li>
+    </ul>
+  </aside>
+
+  <!-- Konten Utama -->
+  <main>
+    <div id="post-container">
+      <!-- Postingan akan ditampilkan di sini -->
+    </div>
+  </main>
+
+  <!-- Script menampilkan posting -->
+  <script>
+    const posts = JSON.parse(localStorage.getItem("published") || "[]");
+    const container = document.getElementById("post-container");
+
+    if (posts.length === 0) {
+      container.innerHTML = "<p>Belum ada posting yang dipublish.</p>";
+    } else {
+      posts.forEach((p) => {
+        const div = document.createElement("div");
+        div.className = "post-card";
+
+        let mediaHTML = "";
+        if(p.image) {
+          mediaHTML = `<img src="${p.image}" alt="Gambar Post">`;
+        } else if(p.video) {
+          let embedURL = "";
+          if(p.video.includes("youtube.com") || p.video.includes("youtu.be")) {
+            let videoId = p.video.split("v=")[1] || p.video.split("/")[3];
+            embedURL = `https://www.youtube.com/embed/${videoId}`;
+          } else {
+            embedURL = p.video; // fallback
+          }
+          mediaHTML = `<iframe src="${embedURL}" allowfullscreen></iframe>`;
+        }
+
+        div.innerHTML = `
+          ${mediaHTML}
+          <h2>${p.title}</h2>
+          <p>${p.content}</p>
+          <hr>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Sidebar toggle
+    const menuIcon = document.getElementById("menu-icon");
+    const sidebar = document.getElementById("sidebar");
+    menuIcon.addEventListener("click", () => sidebar.classList.toggle("hidden"));
+  </script>
+
+  <!-- Feather Icon Init -->
+  <script>
+    feather.replace();
+  </script>
+
+  <!-- Script utama -->
+  <script src="main.js"></script>
+</body>
+</html>
+

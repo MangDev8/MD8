@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - MangDev8</title>
+  <link rel="stylesheet" href="admin.css" />
+  <style>
+    /* ===== Reset ===== */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif;}
+    body { background-color:#F0F2F5; color:#333; line-height:1.6;}
+    button { cursor:pointer; }
+
+    nav {
+      background-color:#fff; padding:12px 2rem; box-shadow:0 4px 8px rgba(0,0,0,0.1);
+      position:fixed; top:0; width:100%; z-index:1000;
+    }
+    .logo-wrapper { display:flex; align-items:center; gap:12px; }
+    .logo-text { font-size:1.8rem; font-weight:800; font-style:italic; background:linear-gradient(90deg, #FF7A00 0%, #0001FF 40%, #007BFF 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+    main { padding: 120px 2rem 2rem 2rem; max-width:900px; margin:auto; }
+
+    #login-section, #admin-panel { background:#fff; padding:2rem; border-radius:16px; box-shadow:0 8px 20px rgba(0,0,0,0.1); margin-bottom:2rem; }
+    #login-section h2, #admin-panel h2 { margin-bottom:1rem; font-size:1.8rem; text-align:center; }
+    input, textarea { width:100%; padding:12px; margin-bottom:1rem; border:1px solid #ccc; border-radius:8px; outline:none; transition:0.3s; }
+    input:focus, textarea:focus { border-color:#007BFF; box-shadow:0 0 8px rgba(0,123,255,0.3); }
+    button { padding:10px 18px; border:none; border-radius:8px; font-weight:600; margin-right:8px; transition:0.3s; }
+
+    #save-draft { background:#6c757d; color:#fff; }
+    #save-draft:hover { background:#5a6268; }
+    #publish { background:#007BFF; color:#fff; }
+    #publish:hover { background:#0062cc; }
+    #logout { background:#FF4C4C; color:#fff; }
+    #logout:hover { opacity:0.85; }
+
+    ul { list-style:none; padding-left:0; }
+    li { background:#F9F9F9; padding:12px 16px; margin-bottom:8px; border-radius:12px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 10px rgba(0,0,0,0.05); transition:0.3s; }
+    li:hover { transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,0.08); }
+    li button { background:#FF4C4C; color:#fff; border:none; padding:6px 12px; border-radius:8px; transition:0.2s; }
+    li button:hover { opacity:0.85; }
+
+    #preview-image { max-width:100%; max-height:200px; display:block; margin-bottom:1rem; border-radius:12px; }
+
+    @media(max-width:768px) {
+      main { padding:120px 1rem 2rem 1rem; }
+      button { width:100%; margin-bottom:8px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo-wrapper">
+      <h2 class="logo-text">Mang-Dev8 Admin</h2>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Login Section -->
+    <div id="login-section">
+      <h2>Login Admin</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button id="login-btn">Login</button>
+      <p id="login-msg" style="color:red;"></p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel">
+      <h2>Tambah Post Baru</h2>
+
+      <input type="text" id="title" placeholder="Judul proyek/video">
+
+      <textarea id="content" placeholder="Deskripsi text (opsional)"></textarea>
+
+      <!-- Upload Gambar -->
+      <label>Upload Gambar:</label>
+      <input type="file" id="image-input" accept="image/*">
+      <img id="preview-image" src="" alt="Preview Gambar" style="display:none;">
+
+      <!-- Upload Video Link -->
+      <input type="text" id="video-link" placeholder="Link video (YouTube/TikTok/etc)">
+
+      <div style="margin-bottom:1rem;">
+        <button id="save-draft">Simpan Draft</button>
+        <button id="publish">Publish</button>
+        <button id="logout">Logout</button>
+      </div>
+
+      <h3>Draft</h3>
+      <ul id="draft-list"></ul>
+
+      <h3>Post yang Dipublish</h3>
+      <ul id="published-list"></ul>
+    </div>
+  </main>
+
+  <script>
+    const adminUser = "admin";
+    const adminPass = "12345";
+
+    const loginSection = document.getElementById("login-section");
+    const adminPanel = document.getElementById("admin-panel");
+    const loginMsg = document.getElementById("login-msg");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const loginBtn = document.getElementById("login-btn");
+
+    loginBtn.addEventListener("click", () => {
+      if(usernameInput.value.trim()===adminUser && passwordInput.value.trim()===adminPass){
+        localStorage.setItem("loggedIn","true");
+        showAdminPanel();
+      } else { loginMsg.textContent="Username atau password salah!"; }
+    });
+
+    function showAdminPanel(){
+      loginSection.style.display="none";
+      adminPanel.style.display="block";
+      renderLists();
+    }
+
+    if(localStorage.getItem("loggedIn")==="true"){ showAdminPanel(); }
+
+    document.getElementById("logout").addEventListener("click",()=>{
+      localStorage.removeItem("loggedIn");
+      adminPanel.style.display="none";
+      loginSection.style.display="block";
+    });
+
+    // Preview Gambar
+    const imageInput = document.getElementById("image-input");
+    const previewImage = document.getElementById("preview-image");
+    let imageData = "";
+
+    imageInput.addEventListener("change", function(){
+      const file = this.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+          imageData = e.target.result;
+          previewImage.src = imageData;
+          previewImage.style.display="block";
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+
+    const drafts = JSON.parse(localStorage.getItem("drafts")||"[]");
+    const published = JSON.parse(localStorage.getItem("published")||"[]");
+
+    document.getElementById("save-draft").addEventListener("click",()=>{
+      savePost("drafts");
+    });
+    document.getElementById("publish").addEventListener("click",()=>{
+      savePost("published");
+    });
+
+    function savePost(type){
+      const title = document.getElementById("title").value.trim();
+      const content = document.getElementById("content").value.trim();
+      const videoLink = document.getElementById("video-link").value.trim();
+
+      if(!title && !content && !imageData && !videoLink){
+        return alert("Isi minimal salah satu kolom atau upload gambar/video!");
+      }
+
+      const post = { title, content, image:imageData, video:videoLink };
+      if(type==="drafts"){
+        drafts.push(post);
+        localStorage.setItem("drafts", JSON.stringify(drafts));
+      } else {
+        published.push(post);
+        localStorage.setItem("published", JSON.stringify(published));
+      }
+      renderLists();
+      resetForm();
+    }
+
+    function resetForm(){
+      document.getElementById("title").value="";
+      document.getElementById("content").value="";
+      document.getElementById("video-link").value="";
+      imageInput.value="";
+      previewImage.style.display="none";
+      imageData="";
+    }
+
+    function renderLists(){
+      const draftList = document.getElementById("draft-list");
+      const publishedList = document.getElementById("published-list");
+      draftList.innerHTML=""; publishedList.innerHTML="";
+
+      JSON.parse(localStorage.getItem("drafts")||"[]").forEach((d,i)=>{
+        const li=document.createElement("li");
+        li.textContent=d.title || "Tanpa judul";
+        const del=document.createElement("button");
+        del.textContent="Hapus";
+        del.onclick=()=>{
+          drafts.splice(i,1);
+          localStorage.setItem("drafts", JSON.stringify(drafts));
+          renderLists();
+        };
+        li.appendChild(del); draftList.appendChild(li);
+      });
+
+      JSON.parse(localStorage.getItem("published")||"[]").forEach((p,i)=>{
+        const li=document.createElement("li");
+        li.textContent=p.title || "Tanpa judul";
+        const del=document.createElement("button");
+        del.textContent="Hapus";
+        del.onclick=()=>{
+          published.splice(i,1);
+          localStorage.setItem("published", JSON.stringify(published));
+          renderLists();
+        };
+        li.appendChild(del); publishedList.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
