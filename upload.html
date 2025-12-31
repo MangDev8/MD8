@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Sekarang - MangDev8</title>
+
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo-wrapper">
+      <h2 class="logo-text">Post Sekarang</h2>
+    </div>
+
+    <a href="index.html" class="back-btn">← Kembali</a>
+  </nav>
+
+  <!-- Form Post -->
+  <main>
+    <div class="post-form">
+
+      <input
+        type="text"
+        id="post-username"
+        placeholder="Nama kamu"
+        required
+      />
+
+      <input
+        type="text"
+        id="post-title"
+        placeholder="Judul posting"
+        required
+      />
+
+      <textarea
+        id="post-content"
+        placeholder="Tulis isi posting di sini..."
+        rows="6"
+        required
+      ></textarea>
+
+      <!-- OPSIONAL -->
+      <input
+        type="text"
+        id="post-image"
+        placeholder="URL gambar (opsional)"
+      />
+
+      <input
+        type="text"
+        id="post-video"
+        placeholder="URL video YouTube (opsional)"
+      />
+
+      <button id="post-btn">Kirim Post</button>
+
+      <p id="post-msg"></p>
+    </div>
+  </main>
+
+  <!-- SCRIPT POST -->
+  <script>
+    const btn = document.getElementById("post-btn");
+    const msg = document.getElementById("post-msg");
+
+    btn.addEventListener("click", async () => {
+      const user = document.getElementById("post-username").value.trim();
+      const title = document.getElementById("post-title").value.trim();
+      const content = document.getElementById("post-content").value.trim();
+      const image = document.getElementById("post-image").value.trim();
+      const video = document.getElementById("post-video").value.trim();
+
+      if (!user || !title || !content) {
+        msg.textContent = "Nama, judul, dan isi wajib diisi.";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Mengirim...";
+
+      try {
+        const res = await fetch("api/post.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user,
+            title,
+            content,
+            image,
+            video
+          })
+        });
+
+        const result = await res.json();
+
+        if (result.status === "success") {
+          msg.textContent = "Posting berhasil!";
+          document.querySelectorAll("input, textarea").forEach(e => e.value = "");
+        } else {
+          msg.textContent = "Gagal mengirim posting.";
+        }
+
+      } catch (e) {
+        msg.textContent = "Server error.";
+      }
+
+      btn.disabled = false;
+      btn.textContent = "Kirim Post";
+    });
+  </script>
+
+  <script>
+    feather.replace();
+  </script>
+
+</body>
+</html>
