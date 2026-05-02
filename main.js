@@ -16,6 +16,10 @@ document.addEventListener("click", () => {
         sidebar.classList.add("hidden");
 });
 
+
+
+
+
 // === Admin dan Sistem Postingan ===
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");

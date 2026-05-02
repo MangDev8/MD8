@@ -1,232 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mang-Dev8</title>
+  <title>Mang-Dev8 | Belajar Elektronika & DIY</title>
 
-  <!-- Feather Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <script src="https://unpkg.com/feather-icons"></script>
 
-  <!-- Custom Styles -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<
   <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    /* Tambahan sedikit style agar lebih cantik */
+    .product-card { border: 1px solid #eee; text-decoration: none; color: inherit; display: block; }
+    .product-card:hover { color: #007BFF; }
+    .badge-tech { background: #FF7A00; color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; margin-bottom: 5px; display: inline-block; }
+  </style>
 </head>
 
 <body>
 
-  
-  
-  <!-- Navbar -->
-  <nav>
-    <div class="logo-wrapper">
-      <h2 class="logo-text">MD8</h2>
-    </div>
+<nav>
+  <div class="logo-wrapper">
+    <h2 class="logo-text">MD8</h2>
+  </div>
 
-    <div id="menu-icon" class="menu-icon">
-      <i data-feather="align-right"></i>
-    </div>
-  </nav>
+  <div id="menu-icon" class="menu-icon">
+    <i data-feather="align-right"></i>
+  </div>
+</nav>
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="hidden">
-    <ul>
-      <li><a href="#"><i data-feather="home"></i>Home</a></li>
-      <li><a href="post.html"><i data-feather="user"></i>Postingan</a></li>
-      <li><a href="media.html"><i data-feather="youtube"></i>Media</a></li>
-      <li><a href="#"><i data-feather="cpu"></i>My Project</a></li>
-      <li><a href="#"><i data-feather="link"></i>Project Link</a></li>
-      <li><a href="toko.html"><i data-feather="shopping-cart"></i>Toko DIY</a></li>
-      <li><a href="info.html"><i data-feather="info"></i>Info</a></li>
-    </ul>
-  </aside>
-
-  <!-- Konten -->
+<aside id="sidebar">
+  <ul>
+    <li><a href="#"><i data-feather="home"></i>Home</a></li>
+    <li><a href="media.html"><i data-feather="youtube"></i>Video Tutorial</a></li>
+    <li><a href="artikel.html"><i data-feather="cpu"></i>My Project</a></li>
+    <li><a href="artikel.html"><i data-feather="book-open"></i>Kelas Elektronika</a></li>
+    <li><a href="toko.html"><i data-feather="shopping-cart"></i>Toko Komponen</a></li>
+    <li><a href="info.html"><i data-feather="info"></i>Tentang MD8</a></li>
+  </ul>
+</aside>
 
 <main>
-  <section class="hero">
-    <div class="container hero-inner">
-<div class="brand-box">
-  
-<!--<img src="../rin.png" alt="Battix Logo" class="brand-logo">  -->  
+<div class="page-wrapper">
 
-  <div class="brand-text">
-    <h1 class="brand-title">TEKNISI RUMAHAN</h1>
-    <p class="brand-sub">Belajar Elektronika & Dan Sistem PLTS</p>
+<section class="hero">
+  <div class="container hero-inner">
+
+    <div class="brand-box">
+      <div class="brand-text">
+        <h1 class="brand-title">TEKNISI RUMAHAN</h1>
+        <p class="brand-sub">Belajar Elektronika, PLTS & Web Development</p>
+      </div>
+    </div>
+
+    <div class="hero-copy">
+      <p>Pusat belajar mandiri untuk merakit alat elektronik, memahami sistem energi surya, hingga membangun interface web untuk project kamu.</p>
+    </div>
+
+    <div class="hero-list">
+
+      <div class="item">
+        <span class="emoji">⚡</span>
+        <div>
+          <h3>Dasar Elektronika</h3>
+          <p class="small">Pahami komponen seperti Resistor, Elco, Transistor, dan IC Audio.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="emoji">🔧</span>
+        <div>
+          <h3>DIY Audio & Power</h3>
+          <p class="small">Panduan merakit Speaker Bluetooth dan Ampli Mini 5V/12V.</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <span class="emoji">💻</span>
+        <div>
+          <h3>Web for IoT</h3>
+          <p class="small">Belajar HTML/CSS untuk membuat dashboard monitoring alat kamu.</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
-</div>
-      
-      <br>
-      
-      <div class="hero-copy">
-        <p>Forum dan komunitas baterai & energi terbarukan di Indonesia.</p>
-        <p>Tempat berbagi pengalaman, hasil pengujian, proyek DIY, hingga diskusi teknis tentang baterai, charger, solar panel, dan power system.</p>
-        <p>dan kita juga akan belajar mengenai elektronika dasar, mulai dari awal</p>
-      </div>
-      
-      <div class="hero-list">
-        <div class="item">
-          <span class="emoji">⚡</span>
-          <div>
-            <h3>Apa yang Ada di MD8</h3>
-            <p class="small">Ringkasan topik, mengenai batrai PLTS dan masih banyak lagi yang lain nya.</p>
-            <p class="small">selamat belajar tentang apa itu elektronika.</p>
-          </div>
-        </div>
-        
-        <div class="item">
-          <span class="emoji">🔧</span>
-          <div>
-            <h3>Forum Teknis</h3>
-            <p class="small">Diskusi mendalaman tentang baterai, charger, BMS, dan solar.</p>
-          </div>
-        </div>
-        
-        <div class="item">
-          <span class="emoji">❓</span>
-          <div>
-            <h3>Information</h3>
-            <p class="small">Untuk info yang lebih lengkap kalian bisa ke menu Info, ya biar tau apa aja nih yang ada di web ini, termasuk belajar mengenal komponen elektronika, dan masih banyak yang lain nya.</p>
-            <br />
-            <p>Kalian bisa posting nih, apa yang kalian buat dan pelajari, dan saling berkomunikasi berbagi pengalaman dan ilmu juga ya, kalian bisa cek menu postingan.</p>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </section>
-  
-  <!-- link baca artikel -->
-<section class="product-preview">
-      <div class="promosi4">
-      <h1>BELAJAR ELEKTRONIKA</h1>
-      <p>Yuk baca artikel gimana sih cara belajar elektronika untuk pemula.</p>
-     <br />
-     <p>Untuk lihat yang lain, bisa geser card nya ya.</p>
-     
-    </div>
-    
-    
-    <div class="baca2">
-          <div class="container product-container">
-      
-      <a class="baca" href="#">
-        <div class="product-card">
-          <img src="p2.png" alt="Produk 1" class="product-img">
-          <h4 class="product-title">KOSONG ALIAS BLOM ADA</h4>
-          <p class="product-desc">?</p>
-        </div>
-      </a>
-      <a class="baca" href="#">
-        <div class="product-card">
-          <img src="p2.png" alt="Produk 1" class="product-img">
-          <h4 class="product-title">KOSONG ALIAS BLOM ADA</h4>
-          <p class="product-desc">?</p>
-        </div>
-      </a>
-      
-      
-      
-    </div>
-    </div>
-
 </section>
-    
-  <!-- selesai -->  
-  
-  <!-- ============================= -->
-  <!-- 🔥 PREVIEW PRODUK DI HALAMAN UTAMA -->
-  <!-- ============================= -->
-  
-  <section class="product-preview">
-    
+
+<section class="product-preview">
+  <div class="container">
+
     <div class="promosi4">
-   <h1>PROMOSI PRODUK AJA</h1>
-   <p>Yang minat silahkan cek menu TOKO ya.</p>
-    </div>  
-       <div class="container product-container">
-      
-      <div class="product-card">
-        <img src="p2.png" alt="Produk 1" class="product-img">
-        <h4 class="product-title">Lampu emergency rakitan</h4>
-        <p class="product-desc">Cocok buat di bawa kemanapu kecil mungil dan ringan, muat di kantong anda.</p>
-      </div>
-      
-      <div class="product-card">
-        <img src="p2.png" alt="Produk 2" class="product-img">
-        <h4 class="product-title">BMS 3S 20A</h4>
-        <p class="product-desc">Proteksi aman untuk battery pack.</p>
-      </div>
-      
-      <div class="product-card">
-        <img src="p2.png" alt="Produk 3" class="product-img">
-        <h4 class="product-title">Solar Charger 10A</h4>
-        <p class="product-desc">Controller simpel untuk panel surya kecil.</p>
-      </div>
-      
+      <h2>📘 KELAS <span>ELEKTRONIKA</span></h2>
+      <p>Mulai dari nol. Pahami teorinya, praktekkan rakitannya.</p>
+      <a class="more" href="artikel.html">Semua Materi ></a>
     </div>
-  </section>
-  
-  
-    <!-- ============================= -->
-  <!-- PREVIEW PROJEK DI HALAMAN UTAMA -->
-  <!-- ============================= -->
-  
-  <section class="product-preview">
-    
+
+    <div class="product-container">
+
+      <a class="baca" href="./artikel/resistor.html">
+        <div class="product-card">
+          <span class="badge-tech">MATERI DASAR</span>
+          <img src="img-artikel/resistor.png" class="product-img">
+          <h4 class="product-title">Apa itu Resistor serta fungsinya</h4>
+          <p class="product-desc">Cara menghitung nilai Ohm tanpa bantuan multitester.</p>
+        </div>
+      </a>
+
+      <a class="baca" href="./artikel/elko.html">
+        <div class="product-card">
+          <span class="badge-tech">MATERI DASAR</span>
+          <img src="img-artikel/elko.jpg" class="product-img">
+          <h4 class="product-title">Fungsi Elco</h4>
+          <p class="product-desc">Tips menghilangkan suara dengung (noise) pada audio.</p>
+        </div>
+      </a>
+
+      <a class="baca" href="./artikel/ic-audio.html">
+        <div class="product-card">
+          <span class="badge-tech">MATERI DASAR</span>
+          <img src="img-artikel/tr.jpg" class="product-img">
+          <h4 class="product-title">Mengenal Apa itu Transistor, Dan apa fungsinya</h4>
+          <p class="product-desc">Mengenal berbagai jenis Transistor dan apa sih fungsi dan kegunaan nya dalam rangkaian elektronik.</p>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="product-preview" style="background-color: #fcfcfc;">
+  <div class="container">
+
     <div class="promosi4">
-   <h1>PREVIEW PROJECT</h1>
-   <p>Yang mau lihat lihat silakan cek menu ya.</p>
-    </div>  
-       <div class="container product-container">
-      
+      <h2>🛠️ WORKSHOP <span>PROJECT</span></h2>
+      <p>Project rakitan yang fungsional dan bisa kamu buat sendiri.</p>
+    </div>
+
+    <div class="product-container">
+
       <div class="product-card">
-        <img src="p2.png" alt="Produk 1" class="product-img">
-        <h4 class="product-title">MASIH KOSONG</h4>
-        <p class="product-desc">SABAR</p>
+        <span class="badge-tech">PROJECT</span>
+        <img src="https://via.placeholder.com/150?text=Speaker+BT" class="product-img">
+        <h4 class="product-title">Speaker BT Portable</h4>
+        <p class="product-desc">Menggunakan baterai 18650, BMS, dan Modul Bluetooth MH-M18.</p>
       </div>
 
       <div class="product-card">
-        <img src="p2.png" alt="Produk 1" class="product-img">
-        <h4 class="product-title">MASIH KOSONG</h4>
-        <p class="product-desc">SABAR</p>
+        <span class="badge-tech">PROJECT</span>
+        <img src="https://via.placeholder.com/150?text=Power+Bank" class="product-img">
+        <h4 class="product-title">Power Bank DIY</h4>
+        <p class="product-desc">Rakit Power Bank kapasitas besar dengan modul fast charging.</p>
       </div>
-      
-            <div class="product-card">
-        <img src="p2.png" alt="Produk 1" class="product-img">
-        <h4 class="product-title">MASIH KOSONG</h4>
-        <p class="product-desc">SABAR</p>
+
+      <div class="product-card">
+        <span class="badge-tech">PLTS</span>
+        <img src="https://via.placeholder.com/150?text=Solar+Panel" class="product-img">
+        <h4 class="product-title">Lampu Taman Solar</h4>
+        <p class="product-desc">Otomatis menyala malam hari menggunakan sensor LDR.</p>
       </div>
-      
 
     </div>
-  </section>
-  
-  
+
+  </div>
+</section>
+
+<section class="product-preview">
+  <div class="container">
+    <div class="promosi4">
+      <h2>💻 WEB <span>DEVELOPMENT</span></h2>
+      <p>Belajar coding untuk menampilkan data sensor alat elektronikmu ke web.</p>
+    </div>
+    
+    <div style="background: #f0f7ff; padding: 20px; border-radius: 12px; border-left: 5px solid #007BFF;">
+       <h4>Ingin Buat Dashboard Sendiri?</h4>
+       <p>Pelajari cara membuat tampilan HTML & CSS yang responsif seperti web MD8 ini untuk memantau status baterai atau lampu rumahmu secara online.</p>
+       <a href="belajar-web.html" style="color: #007BFF; font-weight: bold; text-decoration: none;">Mulai Belajar Coding ></a>
+    </div>
+  </div>
+</section>
+
+</div>
 </main>
 
 <footer>
- <div class="credit">
-   <h3>KUNJUNGI JUGA FURUM DUSKUSI KITA YA.</h3>
-   <p>&copy; Tanggal dibuat nya Desember 2025</p>
- </div>
- <div class="link">
-
- </div>
+  <div class="container">
+    <div class="credit">
+      <h3>Gabung Komunitas Mang-Dev8</h3>
+      <p>Tempat diskusi teknisi rumahan, pecinta audio, dan hobiis PLTS.</p>
+      <div style="margin: 15px 0;">
+        <i data-feather="instagram" style="margin: 0 10px; cursor:pointer;"></i>
+        <i data-feather="facebook" style="margin: 0 10px; cursor:pointer;"></i>
+        <i data-feather="youtube" style="margin: 0 10px; cursor:pointer;"></i>
+      </div>
+      <p>&copy; 2026 Mang-Dev8 - Build with Passion</p>
+    </div>
+  </div>
 </footer>
 
-  <!-- ================= SCRIPT ================== -->
-  <script>
-    feather.replace();
+<script>
+  // Aktifkan Feather Icons
+  feather.replace();
 
-    // Sidebar toggle
-    const menuIcon = document.getElementById("menu-icon");
-    const sidebar = document.getElementById("sidebar");
-    menuIcon.addEventListener("click", () => sidebar.classList.toggle("hidden"));
-  </script>
-<script src="data-produk.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  // Sidebar Logic
+  const menuIcon = document.getElementById("menu-icon");
+  const sidebar = document.getElementById("sidebar");
+
+  menuIcon.onclick = () => {
+    sidebar.classList.toggle("active");
+  };
+
+  // Tutup sidebar jika klik di luar (untuk mobile)
+  document.onclick = (e) => {
+    if (!menuIcon.contains(e.target) && !sidebar.contains(e.target)) {
+        sidebar.classList.remove("active");
+    }
+  };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

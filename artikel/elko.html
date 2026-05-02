@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mengenal Kapasitor: Panduan Terlengkap & Terinci</title>
+    <style>
+        :root {
+            --primary: #1a2a6c;
+            --accent: #f2994a;
+            --text-main: #2c3e50;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.8;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 50px auto;
+            background: var(--white);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            margin-top: 40px;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin-top: 25px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: #fff9f1;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            border-radius: 8px;
+        }
+
+        .rumus-container {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .rumus-text {
+            font-size: 2.2rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .material-card {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .image-placeholder {
+            background: #e9ecef;
+            padding: 40px;
+            text-align: center;
+            color: #6c757d;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed #ccc;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .grid-layout { grid-template-columns: 1fr; }
+            .container { padding: 25px; margin: 15px; }
+        }
+
+        .grid-layout .material-card img {
+            width: 100%;
+            border-radius: 5px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header>
+            <h1>MEMAHAMI APA ITU KAPASITOR</h1>
+            <p>Mengenal Kapasitor Elektrolit (Elco) dan Dunia Kapasitor</p>
+        </header>
+
+        <section>
+            <h2>Apa Itu Kapasitor Sebenarnya Lalu apa fungsi nya?</h2>
+            <p>
+                Dalam sirkuit elektronika, kapasitor menduduki posisi yang sangat penting bersama resistor dan induktor. Jika resistor berfungsi sebagai penghambat, maka kapasitor berfungsi sebagai<strong> penyimpan energi listrik sementara.</strong> 
+            </p>
+            
+            <h3>1. Apa itu Kapasitor Elco?</h3>
+            <p>
+                Kapasitor Elektrolit, atau yang sering disingkat Elco (Electrolytic Capacitor), adalah jenis kapasitor yang memiliki polaritas (memiliki kutub positif dan negatif).  
+            </p>
+            <div class="highlight-box">
+                <strong>Definisi Fisik</strong>: Elco berbentuk tabung silinder dengan dua kaki. Kaki yang lebih panjang biasanya adalah kutub positif, sedangkan kaki pendek (atau yang ditandai dengan garis putih pada bodi tabung) adalah kutub negatif.
+
+                
+                Batas Tegangan <strong> (Voltage)</strong>: Setiap Elco memiliki batas tegangan kerja (misal: 16V, 25V, 50V). Jika tegangan yang masuk melebihi batas ini, Elco bisa meledak atau bocor.
+                Kapasitas Besar: Keunggulan utama Elco dibandingkan jenis kapasitor lain adalah kemampuannya menyimpan muatan yang sangat besar dalam ukuran fisik yang relatif kecil. Satuan yang umum digunakan adalah Micro Farad <strong>(µF)</strong>.
+            </div>
+        </section>
+        <section>
+            <h2>2. Fungsi Utama Kapasitor Elco</h2>
+
+            <p>
+                Elco memiliki peran spesifik dalam rangkaian, terutama pada bagian catu daya <strong>(power supply)</strong>:
+            </p>
+            <p>
+              
+                <ul>
+                    <li><strong>1. Filter (Penyaring):</strong> 
+                        Fungsi paling umum adalah menyaring arus AC agar menjadi DC yang rata (smooth). Elco akan membuang "riak" (ripple) pada tegangan sehingga arus yang keluar lebih stabil.
+                    </li>
+
+                    <li><strong>2. Kopling (Penghubung):</strong> Menghubungkan satu bagian rangkaian ke bagian lain tanpa melewatkan arus DC, namun tetap membiarkan sinyal AC lewat.</li>
+
+                    <li><strong>3. Penyimpan Cadangan Energi:</strong> Dalam rangkaian audio, Elco besar sering digunakan untuk menyimpan cadangan energi saat perangkat membutuhkan hentakan daya mendadak (seperti suara bass yang berat).</li>
+
+                    <li><strong>4. Pembangkit Pulsa (Timing):</strong> Jika dikombinasikan dengan resistor, Elco bisa menentukan lama waktu pengisian dan pengosongan muatan, yang sering digunakan dalam rangkaian lampu kedip atau timer.</li>
+                </ul>
+            </p>
+            
+        </section>
+
+       
+        <section>
+            <h2>3. Jenis-Jenis Kapasitor Lainnya</h2>
+            <p>Selain Elco, ada berbagai jenis kapasitor yang dikelompokkan berdasarkan bahan dielektriknya:</p>
+            
+            <div class="grid-layout">
+                <div class="material-card">
+                    <h3>A. Kapasitor Keramik</h3>
+                    <img src="/img-artikel/kapasistor kramik.png" alt=""  >
+
+                    <p><strong>Karakteristik:</strong> Tidak memiliki polaritas (bebas pasang bolak-balik). Nilai kapasitasnya kecil (Pico Farad - Nano Farad).</p>
+
+                    <p><strong>Fungsi:</strong> Sering digunakan pada rangkaian frekuensi tinggi untuk membuang gangguan (noise) atau sebagai bypass.</p>
+                </div>
+                <div class="material-card">
+                    <h3>B. Kapasitor Mylar (Milar)</h3>
+                    <img src="/img-artikel/milar.png" alt="">
+                    <p><strong>Karakteristik: </strong> Kapasitor Milar (sering disebut sebagai kapasitor polyester), yang dimana adalah jenis kapasitor yang menggunakan film polyester sebagai bahan dielektriknya. Berikut adalah rincian mengenai jenis kapasitor tersebut</p>
+                    <p>1. Karakteristik Utama<hr> Non-Polar: yang dimana adalah jenis kapasitor yang tidak memiliki polaritas seperti (Positif) atau (Negatif), sehingga bisa di pasang bolak-balik. </p>
+
+                    <p>Stabilitas Tinggi: Yang dimana kapasitor jenis ini memiliki stabilitas yang lebih baik terhadap perubahan suhu dan frekuensi dibanding kapasitor keramik biasa.  </p>
+
+                    <p><strong>Fungsi:</strong> kopling (Coupling) Menghubungkan sinyal audio dari satu block rangkaian ke block lainnya yang dimana bekerja sebagai filtering atau memblokir arus searah (DC)</p>
+                </div>
+                <div class="material-card">
+                    <h3>C. Kapasitor Elco</h3>
+                    <p></p>
+                </div>
+                <div class="material-card">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            
+        </section>
+
+       
+
+        <footer>
+            <p>Dibuat untuk materi belajar mandiri | &copy; 2026 Belajar Elektronika</p>
+        </footer>
+    </main>
+
+</body>
+</html>

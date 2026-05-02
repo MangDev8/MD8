@@ -1,0 +1,144 @@
+/* ================================
+   reset css
+================================ */
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+/* ================================
+   container utama
+================================ */
+/* ================= PRODUCT & ARTIKEL GRID ================= */
+.product-preview {
+  padding: 60px 0;
+}
+
+.promosi4 {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.promosi4 h2 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.promosi4 span {
+  color: #FF7A00;
+}
+
+.product-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px 5px 25px;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  flex-direction: column;
+}
+
+.product-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.product-card {
+  min-width: 220px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 15px;
+  text-align: left;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  padding-top: 20px;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+  border-color: #007BFF;
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.product-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.product-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.promosi4 span {
+  color: #FF7A00;
+}
+
+.badge-tech {
+ background: #FF7A00;
+ border-radius: 5px;
+ color: #ffff;
+ padding: 8px;
+ font-weight: 200;
+ font-size: 10px;
+}
+
+
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .hero-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .brand-title {
+    font-size: 36px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  #sidebar {
+    transform: translateX(0);
+    width: 240px;
+  }
+
+  main {
+    margin-left: 240px;
+  }
+
+  .menu-icon {
+    display: none; /* Sembunyikan icon menu di desktop */
+  }
+
+  .hero-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+  }
+
+  .product-card {
+    min-width: auto;
+    
+  }
+}
