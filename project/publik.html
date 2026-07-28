@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD8 | Teknisi Rumahan - Koleksi Proyek</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .header .logo span {
+            color: #667eea;
+        }
+
+        .header .admin-link {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header .admin-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 32px;
+            color: #1a1a2e;
+        }
+
+        .page-title p {
+            color: #888;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .project-card .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .project-card .card-body {
+            padding: 18px;
+        }
+
+        .project-card .card-body .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #667eea;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .project-card .card-body h3 {
+            font-size: 18px;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+
+        .project-card .card-body .excerpt {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .project-card .card-body .meta {
+            margin-top: 12px;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .project-card .card-body .meta i {
+            margin-right: 5px;
+        }
+
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 15px;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #d0d0d0;
+        }
+
+        .empty-state h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .loading {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .loading i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        /* ========== MODAL DETAIL ========== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 35px;
+            position: relative;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: right;
+            font-size: 32px;
+            cursor: pointer;
+            color: #999;
+            background: white;
+            border: none;
+            padding: 0 10px;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #333;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            padding-right: 40px;
+        }
+
+        .modal-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #667eea;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .modal-views {
+            color: #888;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .modal-views i {
+            margin-right: 5px;
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid #e8ecf1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-gallery img:hover {
+            transform: scale(1.03);
+            border-color: #667eea;
+        }
+
+        .modal-description {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .modal-description h3 {
+            font-size: 18px;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .modal-description .desc-content {
+            line-height: 1.8;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .modal-description .desc-content p {
+            margin-bottom: 12px;
+        }
+
+        .modal-description .desc-content ul,
+        .modal-description .desc-content ol {
+            margin: 10px 0 15px 20px;
+        }
+
+        .modal-description .desc-content li {
+            margin-bottom: 6px;
+        }
+
+        .modal-description .desc-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 10px 0;
+            border: 2px solid #e8ecf1;
+        }
+
+        .modal-description .desc-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        .modal-description .desc-content table td,
+        .modal-description .desc-content table th {
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+        }
+
+        .modal-description .desc-content table th {
+            background: #f5f7fa;
+            font-weight: 600;
+        }
+
+        /* Lightbox untuk gambar modal */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 22px;
+            }
+
+            .modal-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../index.html" class="logo">MD<span>8</span> | Teknisi Rumahan</a>
+        </header>
+
+        <div class="page-title">
+            <h1>📂 Koleksi Proyek</h1>
+            <p>Berbagai proyek elektronika dan teknologi rumahan</p>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Memuat proyek...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETAIL -->
+    <div class="modal-overlay" id="modalDetail">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <div>
+                <span class="modal-badge" id="modalBadge">PROJECT</span>
+                <span class="modal-views"><i class="fas fa-eye"></i> <span id="modalViews">0</span> views</span>
+            </div>
+
+            <div class="modal-gallery" id="modalGallery"></div>
+
+            <div class="modal-description">
+                <h3>📋 Deskripsi & Komponen</h3>
+                <div class="desc-content" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImage" src="" alt="Preview">
+    </div>
+
+    <script>
+        // ============ DATA ============
+        let projects = [];
+        let currentProjectId = null;
+
+        function loadProjects() {
+            const stored = localStorage.getItem('md8_projects_data');
+            
+            if (stored) {
+                try {
+                    projects = JSON.parse(stored);
+                } catch (e) {
+                    projects = [];
+                }
+            } else {
+                // Data default
+                projects = [
+                    {
+                        id: Date.now() + 1,
+                        title: 'Speaker BT Portable',
+                        category: 'PROJECT',
+                        description: '<p><strong>Komponen:</strong></p><ul><li>Baterai 18650 (2x)</li><li>BMS 2S</li><li>Modul Bluetooth MH-M18</li><li>Speaker 3W</li></ul><p><strong>Cara Membuat:</strong></p><p>Rangkai semua komponen sesuai skema, pastikan koneksi ground dan power benar.</p>',
+                        images: ['../p2.png'],
+                        views: 0
+                    },
+                    {
+                        id: Date.now() + 2,
+                        title: 'Power Bank DIY',
+                        category: 'PROJECT',
+                        description: '<p>Power bank kapasitas besar dengan fast charging menggunakan modul TP4056 dan boost converter.</p>',
+                        images: ['../p2.png'],
+                        views: 0
+                    },
+                    {
+                        id: Date.now() + 3,
+                        title: 'Lampu Taman Solar',
+                        category: 'PLTS',
+                        description: '<p>Lampu otomatis dengan sensor LDR dan panel surya 5V. Baterai 18650 untuk penyimpanan daya.</p>',
+                        images: ['../p2.png'],
+                        views: 0
+                    }
+                ];
+                saveProjects();
+            }
+            renderProjects();
+        }
+
+        function saveProjects() {
+            localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+        }
+
+        function renderProjects() {
+            const grid = document.getElementById('projectsGrid');
+
+            if (!projects || projects.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Belum Ada Proyek</h3>
+                        <p>Proyek akan muncul setelah admin menambahkan.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = projects.map(project => `
+                <div class="project-card" onclick="openModal('${project.id}')">
+                    <img src="${project.images && project.images.length > 0 ? project.images[0] : '../p2.png'}" 
+                         alt="${project.title}" 
+                         class="card-image"
+                         onerror="this.src='../p2.png'">
+                    <div class="card-body">
+                        <span class="badge">${project.category || 'PROJECT'}</span>
+                        <h3>${project.title}</h3>
+                        <div class="excerpt">${stripHtml(project.description)}</div>
+                        <div class="meta">
+                            <i class="fas fa-images"></i> ${project.images ? project.images.length : 0} gambar
+                            <span style="margin-left:15px;"><i class="fas fa-eye"></i> ${project.views || 0} views</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function stripHtml(html) {
+            if (!html) return '';
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.textContent || tmp.innerText || '';
+        }
+
+        // ============ MODAL ============
+        function openModal(id) {
+            const project = projects.find(p => p.id == id);
+            if (!project) return;
+
+            currentProjectId = id;
+
+            // Update views
+            project.views = (project.views || 0) + 1;
+            saveProjects();
+            renderProjects();
+
+            // Set data ke modal
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalBadge').textContent = project.category || 'PROJECT';
+            document.getElementById('modalViews').textContent = project.views || 0;
+
+            // Gallery
+            const gallery = document.getElementById('modalGallery');
+            if (project.images && project.images.length > 0) {
+                gallery.innerHTML = project.images.map(img => `
+                    <img src="${img}" alt="Gambar" onerror="this.src='p2.png'" onclick="openLightbox('${img}')">
+                `).join('');
+            } else {
+                gallery.innerHTML = `<img src="p2.png" alt="No image" onclick="openLightbox('p2.png')">`;
+            }
+
+            // Description
+            document.getElementById('modalDescription').innerHTML = project.description || '<p>Deskripsi tidak tersedia.</p>';
+
+            // Tampilkan modal
+            document.getElementById('modalDetail').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalDetail').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ============ LIGHTBOX ============
+        function openLightbox(src) {
+            document.getElementById('lightboxImage').src = src;
+            document.getElementById('lightboxOverlay').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxOverlay').classList.remove('active');
+        }
+
+        // ============ EVENT ============
+        // Tutup modal saat klik di luar
+        document.getElementById('modalDetail').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Tutup lightbox saat klik di luar
+        document.getElementById('lightboxOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (document.getElementById('lightboxOverlay').classList.contains('active')) {
+                    closeLightbox();
+                } else if (document.getElementById('modalDetail').classList.contains('active')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // ============ INIT ============
+        loadProjects();
+
+        // Listen untuk perubahan data
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'md8_projects_data') {
+                loadProjects();
+            }
+        });
+    </script>
+</body>
+</html>
