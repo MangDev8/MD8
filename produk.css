@@ -1,0 +1,131 @@
+/* ================================
+   PRODUCT GRID (3 kolom)
+================================ */
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; 
+  padding: 10px;
+}
+
+/* ================================
+   CARD
+================================ */
+.product-card {
+  width: 100%;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.2s;
+  background-color: #E2E2E2;
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+/* ================================
+   POPUP BACKGROUND
+================================ */
+.popup-bg {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* ================================
+   POPUP BOX
+================================ */
+.popup-box {
+  background: white;
+  padding: 20px;
+  width: 320px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.popup-box img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* ================================
+   BUTTON
+================================ */
+.close-btn,
+.buy-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-btn {
+  background: #ccc;
+}
+
+.buy-btn {
+  background: #ff6000;
+  color: white;
+}
+
+/* ================================
+   SLIDER
+================================ */
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 10px;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.prev { left: 5px; }
+.next { right: 5px; }
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: 1fr;
+  }
+}

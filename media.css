@@ -1,0 +1,281 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #121212;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  color: #fff;
+  line-height: 1.5;
+}
+
+/* ===== HEADER ===== */
+/* HEADER */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 0.5rem 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 60px;
+}
+header h2 .logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 700;
+  white-space: nowrap; /* cegah teks turun */
+  justify-content: center;
+}
+
+/* DESKTOP NAVIGATION */
+nav .menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem; /* biar jarak rapi */
+}
+nav .menu li {
+  display: flex;
+  align-items: center;
+}
+nav .menu li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 0;
+  transition: color 0.3s ease;
+  position: relative;
+  white-space: nowrap; /* teks gak pecah */
+  font-size: 0.95rem;
+}
+nav .menu li a:hover {
+  color: #1FA6FF;
+}
+
+/* HAMBURGER ICON */
+nav .hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 1rem;
+  z-index: 1001;
+}
+nav .hamburger .bar {
+  width: 25px;
+  height: 3px;
+  margin: 4px 0;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+/* Hamburger to X */
+nav .hamburger.active .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+nav .hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+nav .hamburger.active .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* RESPONSIVE MENU */
+@media (max-width: 992px) {
+  nav .menu li a {
+    font-size: 0.9rem;
+    padding: 6px 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav .menu {
+    flex-direction: column;
+    background-color: rgba(30, 30, 30, 0.95);
+    position: fixed;
+    top: 0;
+    right: -260px;
+    width: 260px;
+    height: 100%;
+    padding-top: 80px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4);
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+  }
+
+  nav .menu.active {
+    right: 0;
+  }
+
+  nav .menu li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav .menu li:last-child {
+    border-bottom: none;
+  }
+
+  nav .menu li a {
+    padding: 1rem 2rem;
+    display: block;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  nav .menu li a:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+
+  nav .hamburger {
+    display: flex;
+  }
+
+  /* Overlay saat menu aktif */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Tombol Close Navbar */
+  nav .menu .close-menu-item {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 15px;
+    width: 100%;
+  }
+
+  .close-navbar {
+    background: #555;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 1.8rem;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .close-navbar:hover {
+    background: #e74c3c;
+    transform: rotate(90deg);
+  }
+}
+
+/* ===== KONTEN ===== */
+.content {
+  max-width: 2500px;
+  margin: 80px auto 20px; /* kasih jarak dari header */
+  padding: 0 5px;
+}
+
+.judul-section {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+/* ===== VIDEO GRID ===== */
+.container-media {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  justify-content: center;
+}
+
+/* RESPONSIVE GRID */
+@media (min-width: 600px) {
+  .container-media {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 992px) {
+  .container-media {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ===== VIDEO CARD ===== */
+.video-card {
+  background: #1c1c1c;
+  
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thumbnail (iframe) */
+.video-thumb iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+/* Info video */
+.video-info {
+  padding: 10px;
+}
+.video-title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.video-channel {
+  font-size: 13px;
+  color: #aaa;
+}
+
+nav ul li a {
+  color: #000;
+  gap: 10px;
+  text-decoration: none;
+  list-style: none;
+  margin: 10px;
+  
+}
+
+nav ul li {
+  list-style: none;
+  background-color: #00C2FF;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+nav ul li:hover {
+ animation: 0.3s ease;
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+background-color: #0B79E3;
+}
+
