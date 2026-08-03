@@ -1,5 +1,6 @@
 // ============================================
 // MD8 | Teknisi Rumahan - SCRIPT JS (PUBLIK)
+// Mendukung: JSON file (prioritas) → localStorage → default
 // ============================================
 
 let projects = [];
@@ -53,43 +54,78 @@ function getDefaultProjects() {
 }
 
 // ============ LOAD DATA ============
-function loadProjects() {
+async function loadProjects() {
     const grid = document.getElementById('projectsGrid');
     
     try {
+        // 1. Coba ambil dari file JSON (prioritas utama)
+        // Path disesuaikan: karena publik.html ada di folder project/, maka naik satu level ke ../data/
+        const response = await fetch('../data/projects.json');
+        if (response.ok) {
+            const jsonData = await response.json();
+            if (Array.isArray(jsonData) && jsonData.length > 0) {
+                // Gabungkan dengan data views dari localStorage
+                const viewsData = getViewsFromLocalStorage();
+                projects = jsonData.map(p => ({
+                    ...p,
+                    views: viewsData[p.id] || p.views || 0
+                }));
+                console.log('✅ Data dimuat dari file JSON:', projects.length, 'proyek');
+                renderProjects();
+                return;
+            }
+        }
+        console.warn('⚠️ File JSON tidak ditemukan atau kosong, beralih ke localStorage...');
+    } catch (e) {
+        console.warn('⚠️ Gagal fetch JSON:', e.message);
+    }
+
+    // 2. Fallback ke localStorage
+    try {
         const stored = localStorage.getItem('md8_projects_data');
-        
         if (stored) {
             const parsed = JSON.parse(stored);
             if (Array.isArray(parsed) && parsed.length > 0) {
                 projects = parsed;
                 console.log('✅ Data dimuat dari localStorage:', projects.length, 'proyek');
-            } else {
-                console.warn('⚠️ Data di localStorage kosong atau tidak valid, gunakan default');
-                projects = getDefaultProjects();
-                localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+                renderProjects();
+                return;
             }
-        } else {
-            console.log('ℹ️ Tidak ada data di localStorage, gunakan default');
-            projects = getDefaultProjects();
-            localStorage.setItem('md8_projects_data', JSON.stringify(projects));
         }
+        console.warn('⚠️ Data di localStorage kosong, gunakan default...');
     } catch (e) {
         console.error('❌ Error membaca localStorage:', e);
-        projects = getDefaultProjects();
-        localStorage.setItem('md8_projects_data', JSON.stringify(projects));
     }
 
+    // 3. Terakhir, pakai data default
+    projects = getDefaultProjects();
+    // Simpan default ke localStorage agar tidak perlu fetch ulang
+    localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+    console.log('✅ Data default digunakan.');
     renderProjects();
 }
 
-// ============ SIMPAN DATA ============
-function saveProjectsData() {
+// ============ AMBIL VIEWS DARI LOCALSTORAGE ============
+function getViewsFromLocalStorage() {
     try {
-        localStorage.setItem('md8_projects_data', JSON.stringify(projects));
-        console.log('💾 Data disimpan ke localStorage');
+        const stored = localStorage.getItem('md8_projects_views');
+        if (stored) {
+            return JSON.parse(stored);
+        }
+    } catch (e) {}
+    return {};
+}
+
+// ============ SIMPAN VIEWS KE LOCALSTORAGE ============
+function saveViewsToLocalStorage() {
+    try {
+        const viewsData = {};
+        projects.forEach(p => {
+            viewsData[p.id] = p.views || 0;
+        });
+        localStorage.setItem('md8_projects_views', JSON.stringify(viewsData));
     } catch (e) {
-        console.error('❌ Gagal menyimpan data:', e);
+        console.error('❌ Gagal menyimpan views:', e);
     }
 }
 
@@ -164,7 +200,7 @@ function openModal(id) {
 
     // Update views
     project.views = (project.views || 0) + 1;
-    saveProjectsData();
+    saveViewsToLocalStorage(); // simpan views ke localStorage terpisah
 
     // Header image
     const headerImg = document.getElementById('modalHeaderImage');
@@ -255,12 +291,12 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjects();
 });
 
-// Listen perubahan data dari tab lain (sinkronisasi antar tab)
+// Listen perubahan data dari tab lain (hanya untuk localStorage)
 window.addEventListener('storage', function(e) {
-    if (e.key === 'md8_projects_data') {
+    if (e.key === 'md8_projects_data' || e.key === 'md8_projects_views') {
         console.log('📡 Data berubah dari tab lain, reload...');
         loadProjects();
     }
 });
 
-console.log('🚀 MD8 Public JS siap!');
+console.log('🚀 MD8 Public JS siap (JSON + localStorage)');
