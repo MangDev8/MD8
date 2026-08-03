@@ -1,61 +1,99 @@
 // ============================================
-// MD8 | Teknisi Rumahan - SCRIPT JS
+// MD8 | Teknisi Rumahan - SCRIPT JS (PUBLIK)
 // ============================================
 
 let projects = [];
 let currentProjectId = null;
 
-// ============ LOAD DATA DARI LOCALSTORAGE ============
+// ============ DATA DEFAULT ============
+function getDefaultProjects() {
+    return [
+        {
+            id: 1,
+            title: 'Speaker Bluetooth Portable',
+            category: 'PROJECT',
+            description: `<h4>📌 Deskripsi</h4>
+<p>Ini adalah <strong>contoh proyek</strong> speaker bluetooth portabel.</p>
+<img src="https://via.placeholder.com/600x300?text=Speaker+BT" alt="Ilustrasi Speaker">
+<h4>🔧 Komponen</h4>
+<ul>
+  <li>Baterai 18650 (2x)</li>
+  <li>Modul Bluetooth MH-M18</li>
+  <li>Speaker 3W 4Ω</li>
+  <li>BMS 2S</li>
+</ul>
+<h4>📝 Cara Membuat</h4>
+<p>Rangkai semua komponen sesuai skema.</p>`,
+            images: [
+                'https://via.placeholder.com/400x220?text=Speaker+BT+1',
+                'https://via.placeholder.com/400x220?text=Speaker+BT+2'
+            ],
+            views: 25
+        },
+        {
+            id: 2,
+            title: 'Lampu Taman Solar Otomatis',
+            category: 'PLTS',
+            description: `<h4>📌 Deskripsi</h4>
+<p>Lampu otomatis menyala saat malam dengan sensor LDR.</p>
+<img src="https://via.placeholder.com/600x300?text=Lampu+Solar" alt="Skema">
+<h4>🔧 Komponen</h4>
+<ul>
+  <li>Panel surya mini 5V</li>
+  <li>Baterai 18650</li>
+  <li>Sensor LDR</li>
+  <li>LED 3W warm white</li>
+</ul>`,
+            images: [
+                'https://via.placeholder.com/400x220?text=Lampu+Solar'
+            ],
+            views: 15
+        }
+    ];
+}
+
+// ============ LOAD DATA ============
 function loadProjects() {
     const grid = document.getElementById('projectsGrid');
     
-    const stored = localStorage.getItem('md8_projects_data');
-    
-    if (stored) {
-        try {
-            projects = JSON.parse(stored);
-            console.log('✅ Data dimuat dari localStorage:', projects.length, 'proyek');
-        } catch (e) {
-            console.error('❌ Data rusak:', e);
-            projects = [];
-        }
-    } else {
-        // Data default
-        projects = [
-            {
-                id: 1,
-                title: 'Contoh: Speaker Bluetooth Portable',
-                category: 'PROJECT',
-                description: '<h4>📌 Deskripsi</h4><p>Ini adalah <strong>contoh proyek</strong>. Klik tombol <strong>"Tambah Proyek"</strong> untuk menambahkan proyek baru kamu.</p><img src="https://via.placeholder.com/600x300?text=Ilustrasi+Proyek+Speaker" alt="Ilustrasi Speaker"><h4>🔧 Komponen</h4><ul><li>Baterai 18650 (2x)</li><li>Modul Bluetooth MH-M18</li><li>Speaker 3W 4Ω</li><li>BMS 2S</li></ul><h4>📝 Cara Membuat</h4><p>Rangkai semua komponen sesuai skema, pastikan koneksi ground dan power benar.</p>',
-                images: [
-                    'https://via.placeholder.com/400x220?text=Speaker+BT+1',
-                    'https://via.placeholder.com/400x220?text=Speaker+BT+2'
-                ],
-                views: 25
-            },
-            {
-                id: 2,
-                title: 'Contoh: Lampu Taman Solar Otomatis',
-                category: 'PLTS',
-                description: '<h4>📌 Deskripsi</h4><p>Lampu otomatis menyala saat malam dengan sensor LDR.</p><img src="https://via.placeholder.com/600x300?text=Skema+Lampu+Solar" alt="Skema"><h4>🔧 Komponen</h4><ul><li>Panel surya mini 5V</li><li>Baterai 18650</li><li>Sensor LDR</li><li>LED 3W warm white</li></ul>',
-                images: [
-                    'https://via.placeholder.com/400x220?text=Lampu+Solar'
-                ],
-                views: 15
+    try {
+        const stored = localStorage.getItem('md8_projects_data');
+        
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                projects = parsed;
+                console.log('✅ Data dimuat dari localStorage:', projects.length, 'proyek');
+            } else {
+                console.warn('⚠️ Data di localStorage kosong atau tidak valid, gunakan default');
+                projects = getDefaultProjects();
+                localStorage.setItem('md8_projects_data', JSON.stringify(projects));
             }
-        ];
+        } else {
+            console.log('ℹ️ Tidak ada data di localStorage, gunakan default');
+            projects = getDefaultProjects();
+            localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+        }
+    } catch (e) {
+        console.error('❌ Error membaca localStorage:', e);
+        projects = getDefaultProjects();
         localStorage.setItem('md8_projects_data', JSON.stringify(projects));
     }
-    
+
     renderProjects();
 }
 
 // ============ SIMPAN DATA ============
 function saveProjectsData() {
-    localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+    try {
+        localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+        console.log('💾 Data disimpan ke localStorage');
+    } catch (e) {
+        console.error('❌ Gagal menyimpan data:', e);
+    }
 }
 
-// ============ RENDER PROJECTS KE GRID ============
+// ============ RENDER PROJECTS ============
 function renderProjects() {
     const grid = document.getElementById('projectsGrid');
 
@@ -64,8 +102,8 @@ function renderProjects() {
             <div class="empty-state">
                 <i class="fas fa-folder-open"></i>
                 <h3>Belum Ada Proyek</h3>
-                <p>Klik tombol <strong>"Tambah Proyek"</strong> untuk menambahkan proyek pertama!</p>
-                <a href="admin.html">➕ Tambah Proyek Sekarang</a>
+                <p>Silakan tambahkan proyek melalui halaman admin.</p>
+                <a href="admin.html">➕ Tambah Proyek</a>
             </div>
         `;
         return;
@@ -168,7 +206,7 @@ function openModal(id) {
     document.getElementById('modalDetail').classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // Update grid
+    // Update grid (untuk update views)
     renderProjects();
 }
 
@@ -217,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadProjects();
 });
 
-// Listen perubahan data dari tab lain
+// Listen perubahan data dari tab lain (sinkronisasi antar tab)
 window.addEventListener('storage', function(e) {
     if (e.key === 'md8_projects_data') {
         console.log('📡 Data berubah dari tab lain, reload...');
