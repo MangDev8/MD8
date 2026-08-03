@@ -1,14 +1,18 @@
+/* ============================================
+   MD8 | Teknisi Rumahan - STYLE CSS
+   ============================================ */
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background: #f5f7fa;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
 }
 
 .container {
@@ -17,177 +21,208 @@ body {
     padding: 20px;
 }
 
+/* ============ HEADER ============ */
 .header {
-    background: white;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
     padding: 20px 30px;
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
     flex-wrap: wrap;
     gap: 15px;
 }
 
-.header .logo {
-    font-size: 28px;
-    font-weight: 700;
-    color: #333;
-    text-decoration: none;
-}
-
-.header .logo span {
-    color: #667eea;
-}
-
-.header .admin-link {
-    padding: 10px 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
     color: white;
-    border-radius: 10px;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
 }
 
-.header .admin-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+.logo span {
+    color: #e74c3c;
 }
 
+/* ============ PAGE TITLE ============ */
 .page-title {
-    margin-bottom: 25px;
+    text-align: center;
+    margin-bottom: 40px;
 }
 
 .page-title h1 {
-    font-size: 32px;
+    font-size: 2.5rem;
     color: #1a1a2e;
+    margin-bottom: 10px;
 }
 
 .page-title p {
-    color: #888;
-    font-size: 16px;
-    margin-top: 5px;
+    color: #666;
+    font-size: 1.1rem;
 }
 
+/* ============ PROJECTS GRID ============ */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 25px;
 }
 
+/* ============ PROJECT CARD ============ */
 .project-card {
     background: white;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    transition: all 0.3s;
+    border: 1px solid #eee;
+    animation: fadeInUp 0.5s ease-out;
 }
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
-.project-card .card-image {
+.card-image {
     width: 100%;
     height: 220px;
     object-fit: cover;
-    background: #f0f0f0;
+    background: #e0e0e0;
 }
 
-.project-card .card-body {
-    padding: 18px;
+.card-body {
+    padding: 20px 25px 25px;
 }
 
-.project-card .card-body .badge {
+/* ============ BADGES ============ */
+.badge {
     display: inline-block;
-    padding: 4px 12px;
+    padding: 5px 15px;
     border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    background: #667eea;
-    color: white;
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
 }
 
-.project-card .card-body h3 {
-    font-size: 18px;
+.badge-project {
+    background: #ffeaa7;
+    color: #d68910;
+}
+
+.badge-plts {
+    background: #a8e6cf;
+    color: #1e8449;
+}
+
+.badge-iot {
+    background: #81ecec;
+    color: #00695c;
+}
+
+.badge-robotik {
+    background: #fab1a0;
+    color: #d63031;
+}
+
+.badge-elektronika {
+    background: #dfe6e9;
+    color: #2d3436;
+}
+
+.card-body h3 {
+    font-size: 1.4rem;
     color: #1a1a2e;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    line-height: 1.3;
 }
 
-.project-card .card-body .excerpt {
+.excerpt {
     color: #666;
-    font-size: 14px;
+    font-size: 0.9rem;
     line-height: 1.6;
+    margin-bottom: 15px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.project-card .card-body .meta {
-    margin-top: 12px;
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     color: #999;
-    font-size: 12px;
+    font-size: 0.85rem;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
 }
 
-.project-card .card-body .meta i {
+.meta i {
     margin-right: 5px;
 }
 
+/* ============ LOADING & EMPTY STATE ============ */
+.loading,
 .empty-state {
-    grid-column: 1/-1;
     text-align: center;
-    padding: 80px 20px;
-    background: white;
-    border-radius: 15px;
-    color: #888;
+    padding: 60px 20px;
+    grid-column: 1 / -1;
 }
 
+.loading i,
 .empty-state i {
-    font-size: 48px;
-    margin-bottom: 15px;
-    color: #d0d0d0;
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 20px;
+}
+
+.loading p {
+    color: #999;
+    font-size: 1.1rem;
 }
 
 .empty-state h3 {
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
 }
 
-.loading {
-    grid-column: 1/-1;
-    text-align: center;
-    padding: 60px 20px;
-    color: #888;
+.empty-state p {
+    color: #666;
+    max-width: 500px;
+    margin: 0 auto 20px;
 }
 
-.loading i {
-    font-size: 40px;
-    margin-bottom: 15px;
+.empty-state a {
+    color: #667eea;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-/* ========== MODAL DETAIL ========== */
+.empty-state a:hover {
+    text-decoration: underline;
+}
+
+/* ============ MODAL ============ */
 .modal-overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
+    background: rgba(0,0,0,0.8);
+    display: none;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
     padding: 20px;
-    overflow-y: auto;
 }
 
 .modal-overlay.active {
@@ -197,164 +232,208 @@ body {
 .modal-content {
     background: white;
     border-radius: 20px;
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 35px;
     position: relative;
-    animation: modalFade 0.3s ease;
-}
-
-@keyframes modalFade {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
 
 .modal-close {
-    position: sticky;
-    top: 0;
-    float: right;
-    font-size: 32px;
-    cursor: pointer;
-    color: #999;
-    background: white;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    background: rgba(0,0,0,0.5);
+    color: white;
     border: none;
-    padding: 0 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
     z-index: 10;
-    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
 }
 
 .modal-close:hover {
-    color: #333;
-    transform: rotate(90deg);
+    background: #e74c3c;
+}
+
+.modal-header-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.modal-body {
+    padding: 30px;
 }
 
 .modal-title {
-    font-size: 28px;
+    font-size: 2rem;
     color: #1a1a2e;
-    margin-bottom: 10px;
-    padding-right: 40px;
+    margin: 10px 0;
+    line-height: 1.3;
 }
 
-.modal-badge {
-    display: inline-block;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    background: #667eea;
-    color: white;
-    margin-bottom: 15px;
+.modal-meta {
+    color: #999;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.modal-views {
-    color: #888;
-    font-size: 14px;
-    margin-left: 15px;
-}
-
-.modal-views i {
+.modal-meta i {
     margin-right: 5px;
 }
 
+/* ============ GALLERY ============ */
 .modal-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    gap: 10px;
+    margin-bottom: 30px;
 }
 
 .modal-gallery img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: 120px;
     object-fit: cover;
-    border-radius: 12px;
-    border: 2px solid #e8ecf1;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: transform 0.3s;
+    border: 2px solid #eee;
 }
 
 .modal-gallery img:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
     border-color: #667eea;
 }
 
+/* ============ DESCRIPTION (DIPERBAIKI) ============ */
 .modal-description {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid #f0f0f0;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    border-left: 5px solid #667eea;
 }
 
 .modal-description h3 {
-    font-size: 18px;
     color: #1a1a2e;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
 }
 
-.modal-description .desc-content {
-    line-height: 1.8;
-    color: #333;
-    font-size: 15px;
+.desc-content {
+    font-size: 1.05rem; /* ukuran lebih besar */
+    line-height: 1.9;
+    color: #2d3436;
 }
 
-.modal-description .desc-content p {
-    margin-bottom: 12px;
+/* Spasi antar elemen */
+.desc-content p {
+    margin-bottom: 1.2em;
 }
 
-.modal-description .desc-content ul,
-.modal-description .desc-content ol {
-    margin: 10px 0 15px 20px;
+.desc-content h4 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    font-weight: 700;
 }
 
-.modal-description .desc-content li {
-    margin-bottom: 6px;
-}
-
-.modal-description .desc-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin: 10px 0;
-    border: 2px solid #e8ecf1;
-}
-
-.modal-description .desc-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 10px 0;
-}
-
-.modal-description .desc-content table td,
-.modal-description .desc-content table th {
-    border: 1px solid #e0e0e0;
-    padding: 8px 12px;
-}
-
-.modal-description .desc-content table th {
-    background: #f5f7fa;
+.desc-content h5 {
+    color: #2d3436;
+    font-size: 1.1rem;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
     font-weight: 600;
 }
 
-/* Lightbox untuk gambar modal */
+.desc-content ul,
+.desc-content ol {
+    padding-left: 2em;
+    margin: 0.8em 0 1.5em 0;
+}
+
+.desc-content li {
+    margin-bottom: 0.5em;
+    line-height: 1.7;
+}
+
+.desc-content img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 1.5em 0;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.desc-content img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.desc-content strong {
+    color: #1a1a2e;
+    font-weight: 700;
+}
+
+.desc-content em {
+    color: #555;
+}
+
+.desc-content a {
+    color: #667eea;
+    text-decoration: underline;
+}
+
+.desc-content blockquote {
+    border-left: 4px solid #667eea;
+    padding: 0.8em 1.5em;
+    margin: 1.5em 0;
+    background: #edf0f7;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: #2d3436;
+}
+
+.desc-content .tip-box {
+    background: #d1ecf1;
+    border: 1px solid #17a2b8;
+    padding: 1.2em 1.8em;
+    border-radius: 12px;
+    margin: 1.5em 0;
+}
+
+.desc-content .highlight-box {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    padding: 1.2em 1.8em;
+    border-radius: 12px;
+    margin: 1.5em 0;
+}
+
+/* ============ LIGHTBOX ============ */
 .lightbox-overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.95);
-    z-index: 99999;
+    display: none;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    z-index: 2000;
 }
 
 .lightbox-overlay.active {
@@ -363,50 +442,129 @@ body {
 
 .lightbox-overlay img {
     max-width: 90%;
-    max-height: 90%;
+    max-height: 90vh;
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
 .lightbox-close {
     position: absolute;
     top: 20px;
     right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
+    font-size: 3rem;
     background: none;
     border: none;
-    transition: all 0.3s;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
 }
 
 .lightbox-close:hover {
-    transform: rotate(90deg);
+    color: #e74c3c;
 }
 
+/* ============ SCROLLBAR ============ */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #5a6fd6;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
+    .container {
+        padding: 10px;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
+    .header {
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 1.4rem;
+    }
+
     .page-title h1 {
-        font-size: 24px;
+        font-size: 1.8rem;
     }
 
     .modal-content {
+        border-radius: 15px;
+    }
+
+    .modal-body {
         padding: 20px;
     }
 
     .modal-title {
-        font-size: 22px;
+        font-size: 1.5rem;
+    }
+
+    .modal-header-image {
+        height: 200px;
     }
 
     .modal-gallery {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .modal-description {
+        padding: 20px;
+    }
+
+    .desc-content {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-body {
+        padding: 15px 20px 20px;
+    }
+
+    .card-body h3 {
+        font-size: 1.2rem;
+    }
+
+    .modal-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .modal-gallery img {
+        height: 100px;
     }
 }

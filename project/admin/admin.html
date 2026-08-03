@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD8 | Admin - Kelola Proyek</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== STYLE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+        .logo span { color: #e74c3c; }
+
+        .btn-view {
+            background: #1a1a2e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-view:hover { background: #333; }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .form-card h2 {
+            color: #1a1a2e;
+            margin-bottom: 5px;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        .form-group label i {
+            margin-right: 8px;
+            color: #667eea;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .form-group textarea {
+            min-height: 300px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .help-text {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 5px;
+        }
+        .help-text code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* ===== TOOLBAR TAG ===== */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+        .toolbar .tag-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #1a1a2e;
+            transition: all 0.2s;
+            font-family: 'Segoe UI', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .toolbar .tag-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .toolbar .tag-btn i {
+            font-size: 0.7rem;
+        }
+        .toolbar .separator {
+            width: 1px;
+            background: #ddd;
+            margin: 0 4px;
+        }
+
+        /* ===== PREVIEW GAMBAR ===== */
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .image-preview-container .preview-item {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #e0e0e0;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-preview-container .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-preview-container .preview-item .loading-spinner {
+            font-size: 1.5rem;
+            color: #999;
+        }
+        .image-preview-container .preview-item .fallback {
+            font-size: 0.7rem;
+            color: #999;
+            text-align: center;
+            padding: 5px;
+            word-break: break-all;
+        }
+        .image-preview-container .preview-item .badge-path {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            flex: 1;
+            transition: transform 0.3s;
+        }
+        .btn-submit:hover { transform: scale(1.02); }
+        .btn-submit:active { transform: scale(0.98); }
+
+        .btn-cancel {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: none;
+        }
+        .btn-cancel:hover { transform: scale(1.02); }
+
+        .btn-preview {
+            background: #1a1a2e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .preview-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 2px dashed #ccc;
+            display: none;
+        }
+        .preview-box h4 { margin-bottom: 10px; color: #666; }
+
+        .success-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+        .success-msg.show { display: block; }
+        .success-msg a { color: #155724; font-weight: bold; }
+
+        .project-list {
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .project-list h3 { margin-bottom: 20px; color: #1a1a2e; }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item .title { font-weight: bold; color: #1a1a2e; }
+        .list-item .category { font-size: 0.8rem; color: #666; }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-edit {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-edit:hover { background: #2980b9; }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .btn-delete:hover { background: #c0392b; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .form-card, .project-list { padding: 20px; }
+            .action-buttons { flex-direction: column; }
+            .toolbar .tag-btn { font-size: 0.7rem; padding: 4px 8px; }
+            .image-preview-container .preview-item { width: 80px; height: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="logo">MD<span>8</span> | Admin Panel</a>
+            <a href="../publik.html" class="btn-view"><i class="fas fa-eye"></i> Lihat Proyek</a>
+        </div>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <h2 id="formTitle">✍️ Tambah Proyek Baru</h2>
+            <p class="subtitle" id="formSubtitle">Isi form di bawah, data akan otomatis tersimpan dan muncul di halaman utama.</p>
+
+            <div class="success-msg" id="successMsg">
+                <i class="fas fa-check-circle"></i> <span id="msgText">Proyek berhasil ditambahkan!</span>
+                <a href="publik.html">Lihat hasilnya →</a>
+            </div>
+
+            <form id="projectForm">
+                <input type="hidden" id="editId" value="">
+
+                <!-- Judul -->
+                <div class="form-group">
+                    <label><i class="fas fa-heading"></i> Judul Proyek</label>
+                    <input type="text" id="title" placeholder="Contoh: Speaker Bluetooth Portable" required>
+                </div>
+
+                <!-- Kategori -->
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Kategori</label>
+                    <select id="category">
+                        <option value="PROJECT">PROJECT</option>
+                        <option value="PLTS">PLTS / Solar</option>
+                        <option value="IOT">IoT</option>
+                        <option value="ROBOTIK">Robotik</option>
+                        <option value="ELEKTRONIKA">Elektronika</option>
+                    </select>
+                </div>
+
+                <!-- Gambar Utama -->
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> URL Gambar Utama (Thumbnail)</label>
+                    <input type="text" id="mainImage" placeholder="Contoh: ../gambar/speaker.jpg atau images/speaker.jpg">
+                    <div class="help-text">Masukkan path relatif ke gambar dari folder proyek.</div>
+                    <div class="image-preview-container" id="mainPreview"></div>
+                </div>
+
+                <!-- Gambar Tambahan -->
+                <div class="form-group">
+                    <label><i class="fas fa-images"></i> URL Gambar Tambahan</label>
+                    <input type="text" id="additionalImages" placeholder="gambar1.jpg, gambar2.jpg, gambar3.jpg">
+                    <div class="help-text">Opsional. Pisahkan dengan koma untuk multiple gambar.</div>
+                    <div class="image-preview-container" id="additionalPreview"></div>
+                </div>
+
+                <!-- Deskripsi -->
+                <div class="form-group">
+                    <label><i class="fas fa-file-alt"></i> Deskripsi (HTML Allowed)</label>
+                    
+                    <!-- TOOLBAR TAG -->
+                    <div class="toolbar" id="toolbar">
+                        <button type="button" class="tag-btn" data-tag="h1"><i class="fas fa-heading"></i> H1</button>
+                        <button type="button" class="tag-btn" data-tag="h2"><i class="fas fa-heading"></i> H2</button>
+                        <button type="button" class="tag-btn" data-tag="h3"><i class="fas fa-heading"></i> H3</button>
+                        <button type="button" class="tag-btn" data-tag="h4"><i class="fas fa-heading"></i> H4</button>
+                        <span class="separator"></span>
+                        <button type="button" class="tag-btn" data-tag="p"><i class="fas fa-paragraph"></i> P</button>
+                        <button type="button" class="tag-btn" data-tag="img"><i class="fas fa-image"></i> Img</button>
+                        <span class="separator"></span>
+                        <button type="button" class="tag-btn" data-tag="ul"><i class="fas fa-list-ul"></i> UL</button>
+                        <button type="button" class="tag-btn" data-tag="ol"><i class="fas fa-list-ol"></i> OL</button>
+                        <button type="button" class="tag-btn" data-tag="li"><i class="fas fa-circle"></i> LI</button>
+                        <span class="separator"></span>
+                        <button type="button" class="tag-btn" data-tag="strong"><i class="fas fa-bold"></i> Bold</button>
+                        <button type="button" class="tag-btn" data-tag="em"><i class="fas fa-italic"></i> Italic</button>
+                        <span class="separator"></span>
+                        <button type="button" class="tag-btn" data-tag="blockquote"><i class="fas fa-quote-right"></i> Quote</button>
+                        <button type="button" class="tag-btn" data-tag="code"><i class="fas fa-code"></i> Code</button>
+                        <span class="separator"></span>
+                        <button type="button" class="tag-btn" data-tag="tip"><i class="fas fa-lightbulb"></i> Tip Box</button>
+                        <button type="button" class="tag-btn" data-tag="highlight"><i class="fas fa-highlighter"></i> Highlight</button>
+                    </div>
+
+                    <textarea id="description" placeholder="Tulis deskripsi proyek di sini..."></textarea>
+                    <div class="help-text">
+                        Klik tombol di toolbar untuk menyisipkan tag HTML di posisi kursor.
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="form-group">
+                    <button type="button" class="btn-preview" onclick="previewDescription()">
+                        <i class="fas fa-eye"></i> Preview Deskripsi
+                    </button>
+                    <div class="preview-box" id="previewBox">
+                        <h4>Preview:</h4>
+                        <div id="previewContent"></div>
+                    </div>
+                </div>
+
+                <!-- Submit & Cancel -->
+                <div class="btn-group">
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <i class="fas fa-save"></i> Simpan Proyek
+                    </button>
+                    <button type="button" class="btn-cancel" id="cancelBtn" onclick="cancelEdit()">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Daftar Proyek -->
+        <div class="project-list" id="projectListContainer">
+            <h3>📋 Daftar Proyek Tersimpan</h3>
+            <div id="projectList">
+                <p style="color:#999;">Memuat...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ ADMIN JS ============
+
+        // ----- TOOLBAR TAG: Sisipkan tag di posisi kursor -----
+        document.querySelectorAll('.tag-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tag = this.dataset.tag;
+                const textarea = document.getElementById('description');
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                const text = textarea.value;
+
+                let insertion = '';
+                let placeholder = '';
+
+                switch (tag) {
+                    case 'h1': insertion = '<h1>Tulis judul level 1</h1>'; break;
+                    case 'h2': insertion = '<h2>Tulis judul level 2</h2>'; break;
+                    case 'h3': insertion = '<h3>Tulis judul level 3</h3>'; break;
+                    case 'h4': insertion = '<h4>Tulis judul level 4</h4>'; break;
+                    case 'p': insertion = '<p>Tulis paragraf di sini...</p>'; break;
+                    case 'img': insertion = `<img src='' alt='Deskripsi gambar' onclick="openLightbox('')">`; break;
+                    case 'ul': insertion = `<ul>\n  <li>Item pertama</li>\n  <li>Item kedua</li>\n</ul>`; break;
+                    case 'ol': insertion = `<ol>\n  <li>Langkah pertama</li>\n  <li>Langkah kedua</li>\n</ol>`; break;
+                    case 'li': insertion = `<li>Item list</li>`; break;
+                    case 'strong': insertion = `<strong>Teks tebal</strong>`; break;
+                    case 'em': insertion = `<em>Teks miring</em>`; break;
+                    case 'blockquote': insertion = `<blockquote>Kutipan teks di sini...</blockquote>`; break;
+                    case 'code': insertion = `<code>kode</code>`; break;
+                    case 'tip': 
+                        insertion = `<div class='tip-box'>\n  <strong>💡 Tips:</strong>\n  <p>Tulis tips di sini...</p>\n</div>`; 
+                        break;
+                    case 'highlight':
+                        insertion = `<div class='highlight-box'>\n  <strong>⚠️ Perhatian:</strong>\n  <p>Tulis informasi penting di sini...</p>\n</div>`;
+                        break;
+                    default: return;
+                }
+
+                // Sisipkan di posisi kursor
+                const newText = text.substring(0, start) + insertion + text.substring(end);
+                textarea.value = newText;
+                textarea.focus();
+                // Set kursor di tengah tag (jika ada placeholder)
+                const cursorPos = start + insertion.length;
+                textarea.setSelectionRange(cursorPos, cursorPos);
+            });
+        });
+
+        // ----- PREVIEW GAMBAR DENGAN LOADING & FALLBACK -----
+        function createPreviewItem(url) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'preview-item';
+
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = 'Preview';
+            
+            // Loading indicator
+            const spinner = document.createElement('div');
+            spinner.className = 'loading-spinner';
+            spinner.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            wrapper.appendChild(spinner);
+
+            img.onload = function() {
+                spinner.remove();
+                wrapper.appendChild(img);
+            };
+            img.onerror = function() {
+                spinner.remove();
+                const fallback = document.createElement('div');
+                fallback.className = 'fallback';
+                fallback.innerHTML = '<i class="fas fa-image" style="font-size:2rem;display:block;margin-bottom:4px;"></i> Gambar tidak ditemukan';
+                wrapper.appendChild(fallback);
+            };
+
+            // Tambahkan badge path
+            const badge = document.createElement('div');
+            badge.className = 'badge-path';
+            badge.textContent = url;
+            wrapper.appendChild(badge);
+
+            return wrapper;
+        }
+
+        function renderPreview(containerId, text) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            const urls = text.split(',').map(s => s.trim()).filter(s => s);
+            if (urls.length === 0) return;
+
+            urls.forEach(url => {
+                const item = createPreviewItem(url);
+                container.appendChild(item);
+            });
+        }
+
+        document.getElementById('mainImage').addEventListener('input', function() {
+            renderPreview('mainPreview', this.value);
+        });
+
+        document.getElementById('additionalImages').addEventListener('input', function() {
+            renderPreview('additionalPreview', this.value);
+        });
+
+        // ----- Preview Deskripsi -----
+        function previewDescription() {
+            const desc = document.getElementById('description').value;
+            const previewBox = document.getElementById('previewBox');
+            const previewContent = document.getElementById('previewContent');
+            
+            if (desc.trim()) {
+                previewContent.innerHTML = desc;
+                previewBox.style.display = 'block';
+            } else {
+                previewBox.style.display = 'none';
+            }
+        }
+
+        // ----- Load Daftar Proyek -----
+        function loadProjectList() {
+            const listContainer = document.getElementById('projectList');
+            const stored = localStorage.getItem('md8_projects_data');
+            
+            if (!stored) {
+                listContainer.innerHTML = '<p style="color:#999;">Belum ada proyek tersimpan.</p>';
+                return;
+            }
+
+            try {
+                const projects = JSON.parse(stored);
+                
+                if (projects.length === 0) {
+                    listContainer.innerHTML = '<p style="color:#999;">Belum ada proyek tersimpan.</p>';
+                    return;
+                }
+
+                listContainer.innerHTML = projects.map(p => `
+                    <div class="list-item">
+                        <div>
+                            <div class="title">${p.title}</div>
+                            <div class="category">${p.category} | ${p.views || 0} views</div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editProject(${p.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn-delete" onclick="deleteProject(${p.id})">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                listContainer.innerHTML = '<p style="color:#e74c3c;">Error memuat data.</p>';
+            }
+        }
+
+        // ----- Edit Proyek -----
+        function editProject(id) {
+            const stored = localStorage.getItem('md8_projects_data');
+            if (!stored) return;
+
+            try {
+                const projects = JSON.parse(stored);
+                const project = projects.find(p => p.id == id);
+                if (!project) {
+                    alert('Proyek tidak ditemukan!');
+                    return;
+                }
+
+                document.getElementById('editId').value = project.id;
+                document.getElementById('title').value = project.title;
+                document.getElementById('category').value = project.category || 'PROJECT';
+                document.getElementById('mainImage').value = project.images && project.images.length > 0 ? project.images[0] : '';
+                document.getElementById('additionalImages').value = project.images && project.images.length > 1 ? project.images.slice(1).join(', ') : '';
+                document.getElementById('description').value = project.description || '';
+
+                renderPreview('mainPreview', document.getElementById('mainImage').value);
+                renderPreview('additionalPreview', document.getElementById('additionalImages').value);
+
+                document.getElementById('formTitle').textContent = '✏️ Edit Proyek';
+                document.getElementById('formSubtitle').textContent = 'Ubah data proyek yang sudah ada.';
+                document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> Update Proyek';
+                document.getElementById('cancelBtn').style.display = 'block';
+                document.getElementById('successMsg').classList.remove('show');
+
+                document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth' });
+            } catch (e) {
+                alert('Gagal memuat data untuk diedit.');
+            }
+        }
+
+        // ----- Batal Edit -----
+        function cancelEdit() {
+            resetForm();
+            document.getElementById('formTitle').textContent = '✍️ Tambah Proyek Baru';
+            document.getElementById('formSubtitle').textContent = 'Isi form di bawah, data akan otomatis tersimpan dan muncul di halaman utama.';
+            document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save"></i> Simpan Proyek';
+            document.getElementById('cancelBtn').style.display = 'none';
+            document.getElementById('editId').value = '';
+            document.getElementById('successMsg').classList.remove('show');
+        }
+
+        function resetForm() {
+            document.getElementById('projectForm').reset();
+            document.getElementById('mainPreview').innerHTML = '';
+            document.getElementById('additionalPreview').innerHTML = '';
+            document.getElementById('previewBox').style.display = 'none';
+        }
+
+        // ----- Hapus Proyek -----
+        function deleteProject(id) {
+            if (!confirm('Yakin ingin menghapus proyek ini?')) return;
+
+            const stored = localStorage.getItem('md8_projects_data');
+            if (!stored) return;
+
+            try {
+                let projects = JSON.parse(stored);
+                projects = projects.filter(p => p.id != id);
+                localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+                
+                alert('Proyek berhasil dihapus!');
+                loadProjectList();
+                if (document.getElementById('editId').value == id) {
+                    cancelEdit();
+                }
+            } catch (e) {
+                alert('Gagal menghapus proyek.');
+            }
+        }
+
+        // ----- Submit Form -----
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const editId = document.getElementById('editId').value;
+            const title = document.getElementById('title').value.trim();
+            const category = document.getElementById('category').value;
+            const mainImage = document.getElementById('mainImage').value.trim();
+            const additionalImages = document.getElementById('additionalImages').value.trim();
+            const description = document.getElementById('description').value.trim();
+
+            if (!title) {
+                alert('Judul proyek wajib diisi!');
+                return;
+            }
+
+            let images = [];
+            if (mainImage) images.push(mainImage);
+            if (additionalImages) {
+                const additional = additionalImages.split(',').map(img => img.trim()).filter(img => img);
+                images = [...images, ...additional];
+            }
+            if (images.length === 0) {
+                images = ['https://via.placeholder.com/400x220?text=No+Image'];
+            }
+
+            let projects = [];
+            const stored = localStorage.getItem('md8_projects_data');
+            if (stored) {
+                try {
+                    projects = JSON.parse(stored);
+                } catch (e) {
+                    projects = [];
+                }
+            }
+
+            let successMsg = '';
+
+            if (editId) {
+                const index = projects.findIndex(p => p.id == editId);
+                if (index !== -1) {
+                    const oldViews = projects[index].views || 0;
+                    projects[index] = {
+                        ...projects[index],
+                        title: title,
+                        category: category,
+                        description: description || '<p>Deskripsi belum ditambahkan.</p>',
+                        images: images,
+                        views: oldViews
+                    };
+                    successMsg = `Proyek "${title}" berhasil diupdate!`;
+                } else {
+                    alert('Proyek tidak ditemukan!');
+                    return;
+                }
+            } else {
+                const newProject = {
+                    id: Date.now(),
+                    title: title,
+                    category: category,
+                    description: description || '<p>Deskripsi belum ditambahkan.</p>',
+                    images: images,
+                    views: 0
+                };
+                projects.unshift(newProject);
+                successMsg = `Proyek "${title}" berhasil ditambahkan!`;
+            }
+
+            localStorage.setItem('md8_projects_data', JSON.stringify(projects));
+
+            const successMsgEl = document.getElementById('successMsg');
+            document.getElementById('msgText').textContent = successMsg;
+            successMsgEl.classList.add('show');
+
+            cancelEdit();
+            resetForm();
+            loadProjectList();
+
+            setTimeout(() => {
+                successMsgEl.classList.remove('show');
+            }, 5000);
+        });
+
+        // Load daftar saat halaman dibuka
+        loadProjectList();
+    </script>
+</body>
+</html>
