@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1785797648337,
+    "title": "Rin",
+    "category": "PROJECT",
+    "description": "<h1>test</h1>\n\n<div class='tip-box'>\n  <strong>💡 Tips:</strong>\n  <p>Tulis tips di sini...</p>\n</div><div class='highlight-box'>\n  <strong>⚠️ Perhatian:</strong>\n  <p>Tulis informasi penting di sini...</p>\n</div><code>kode</code>",
+    "images": [
+      "../../rin.png"
+    ],
+    "views": 3
+  },
+  {
+    "id": 1785792852449,
+    "title": "Speaker BT Portable",
+    "category": "PROJECT",
+    "description": "<p><strong>Komponen:</strong></p><ul><li>Baterai 18650 (2x)</li><li>BMS 2S</li><li>Modul Bluetooth MH-M18</li><li>Speaker 3W</li></ul><p><strong>Cara Membuat:</strong></p><p>Rangkai semua komponen sesuai skema, pastikan koneksi ground dan power benar.</p>",
+    "images": [
+      "../p2.png"
+    ],
+    "views": 4
+  },
+  {
+    "id": 1785792852450,
+    "title": "Power Bank DIY",
+    "category": "PROJECT",
+    "description": "<p>Power bank kapasitas besar dengan fast charging menggunakan modul TP4056 dan boost converter.</p>",
+    "images": [
+      "../p2.png"
+    ],
+    "views": 2
+  },
+  {
+    "id": 1785792852451,
+    "title": "Lampu Taman Solar",
+    "category": "PLTS",
+    "description": "<p>Lampu otomatis dengan sensor LDR dan panel surya 5V. Baterai 18650 untuk penyimpanan daya.</p>",
+    "images": [
+      "../p2.png"
+    ],
+    "views": 5
+  }
+]
