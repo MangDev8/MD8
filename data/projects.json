@@ -1,19 +1,9 @@
 [
   {
-    "id": 1785797648337,
-    "title": "Rin",
-    "category": "PROJECT",
-    "description": "<h1>test</h1>\n\n<div class='tip-box'>\n  <strong>💡 Tips:</strong>\n  <p>Tulis tips di sini...</p>\n</div><div class='highlight-box'>\n  <strong>⚠️ Perhatian:</strong>\n  <p>Tulis informasi penting di sini...</p>\n</div><code>kode</code>",
-    "images": [
-      "../../rin.png"
-    ],
-    "views": 3
-  },
-  {
     "id": 1785792852449,
-    "title": "Speaker BT Portable",
+    "title": "Speaker Bluetooth Portable",
     "category": "PROJECT",
-    "description": "<p><strong>Komponen:</strong></p><ul><li>Baterai 18650 (2x)</li><li>BMS 2S</li><li>Modul Bluetooth MH-M18</li><li>Speaker 3W</li></ul><p><strong>Cara Membuat:</strong></p><p>Rangkai semua komponen sesuai skema, pastikan koneksi ground dan power benar.</p>",
+    "description": "<h2>Speaker Bluetooth Portable DIY</h2><p>Speaker Bluetooth Portable adalah perangkat audio yang dapat memutar musik secara nirkabel melalui koneksi Bluetooth. Proyek ini cocok untuk pemula karena rangkaiannya cukup sederhana dan komponen yang digunakan mudah ditemukan di toko elektronik.</p><h3>Komponen yang Dibutuhkan</h3><ul><li>2x Baterai Li-ion 18650 (3.7V)</li><li>BMS 2S untuk melindungi baterai dari overcharge, overdischarge, dan short circuit.</li><li>Modul Bluetooth Audio MH-M18.</li><li>Power Amplifier PAM8403 atau sejenisnya.</li><li>2x Speaker 3W 4Ω.</li><li>Saklar ON/OFF.</li><li>LED indikator (opsional).</li><li>Kabel penghubung.</li><li>Casing speaker.</li></ul><h3>Cara Kerja</h3><p>Saat saklar dinyalakan, baterai akan memberikan daya ke modul Bluetooth dan amplifier. Modul Bluetooth akan menerima sinyal audio dari smartphone, kemudian amplifier memperkuat sinyal tersebut sebelum dikirim ke speaker sehingga menghasilkan suara yang lebih keras.</p><h3>Langkah Pembuatan</h3><ol><li>Rangkai dua baterai 18650 secara seri.</li><li>Hubungkan baterai ke BMS 2S.</li><li>Sambungkan output BMS ke saklar.</li><li>Hubungkan saklar ke modul Bluetooth dan amplifier.</li><li>Sambungkan output audio modul Bluetooth ke input amplifier.</li><li>Hubungkan output amplifier ke speaker kanan dan kiri.</li><li>Pastikan semua kabel tersambung dengan benar.</li><li>Masukkan seluruh rangkaian ke dalam casing.</li><li>Nyalakan saklar lalu lakukan pairing Bluetooth dari smartphone.</li></ol><h3>Tips</h3><ul><li>Gunakan kabel yang rapi agar tidak terjadi korsleting.</li><li>Pastikan polaritas baterai benar.</li><li>Jangan mengisi daya tanpa BMS.</li><li>Gunakan casing yang memiliki ventilasi agar amplifier tidak cepat panas.</li></ul>",
     "images": [
       "../p2.png"
     ],
@@ -23,7 +13,7 @@
     "id": 1785792852450,
     "title": "Power Bank DIY",
     "category": "PROJECT",
-    "description": "<p>Power bank kapasitas besar dengan fast charging menggunakan modul TP4056 dan boost converter.</p>",
+    "description": "<h2>Power Bank DIY Kapasitas Besar</h2><p>Power Bank DIY merupakan proyek untuk membuat pengisi daya portable menggunakan baterai Li-ion 18650. Proyek ini dapat digunakan untuk mengisi smartphone, headset Bluetooth, kamera, maupun perangkat USB lainnya.</p><h3>Komponen yang Dibutuhkan</h3><ul><li>4x Baterai Li-ion 18650.</li><li>Holder baterai.</li><li>Modul TP4056 dengan proteksi.</li><li>Boost Converter 5V USB.</li><li>Port USB Output.</li><li>Saklar ON/OFF.</li><li>LED indikator kapasitas baterai (opsional).</li><li>Casing Power Bank.</li></ul><h3>Cara Kerja</h3><p>Baterai menyimpan energi listrik. Saat perangkat USB dihubungkan, Boost Converter akan menaikkan tegangan baterai menjadi 5V sehingga dapat digunakan untuk mengisi daya smartphone. Modul TP4056 berfungsi mengisi ulang baterai secara aman.</p><h3>Langkah Pembuatan</h3><ol><li>Pasang semua baterai pada holder.</li><li>Hubungkan baterai ke modul TP4056.</li><li>Hubungkan output baterai ke Boost Converter.</li><li>Sambungkan output Boost Converter ke port USB.</li><li>Pasang saklar di jalur positif.</li><li>Masukkan seluruh rangkaian ke casing.</li><li>Isi daya hingga penuh sebelum digunakan.</li></ol><h3>Perhatian</h3><ul><li>Gunakan baterai dengan kapasitas dan kondisi yang sama.</li><li>Jangan mencampur baterai baru dan bekas.</li><li>Hindari hubungan pendek pada terminal baterai.</li><li>Gunakan modul TP4056 yang memiliki proteksi.</li></ul>",
     "images": [
       "../p2.png"
     ],
@@ -31,9 +21,9 @@
   },
   {
     "id": 1785792852451,
-    "title": "Lampu Taman Solar",
+    "title": "Lampu Taman Tenaga Surya",
     "category": "PLTS",
-    "description": "<p>Lampu otomatis dengan sensor LDR dan panel surya 5V. Baterai 18650 untuk penyimpanan daya.</p>",
+    "description": "<h2>Lampu Taman Tenaga Surya</h2><p>Lampu taman tenaga surya memanfaatkan energi matahari pada siang hari untuk mengisi baterai, kemudian secara otomatis menyala pada malam hari menggunakan sensor cahaya (LDR).</p><h3>Komponen yang Dibutuhkan</h3><ul><li>Panel Surya 5V.</li><li>Baterai Li-ion 18650.</li><li>Modul Charging Solar.</li><li>Sensor LDR.</li><li>LED High Bright.</li><li>Resistor.</li><li>Transistor NPN.</li><li>Saklar ON/OFF (opsional).</li><li>Casing tahan air.</li></ul><h3>Cara Kerja</h3><p>Pada siang hari panel surya menghasilkan listrik untuk mengisi baterai. Sensor LDR mendeteksi cahaya matahari sehingga LED tetap mati. Saat malam tiba, nilai resistansi LDR berubah sehingga transistor aktif dan LED menyala secara otomatis menggunakan energi dari baterai.</p><h3>Langkah Pembuatan</h3><ol><li>Hubungkan panel surya ke modul charging.</li><li>Sambungkan baterai ke modul charging.</li><li>Rangkai LDR, resistor, dan transistor sebagai saklar otomatis.</li><li>Hubungkan LED ke output transistor.</li><li>Lakukan pengujian dengan menutup sensor LDR.</li><li>Masukkan semua komponen ke casing tahan air.</li></ol><h3>Kelebihan</h3><ul><li>Tidak memerlukan listrik PLN.</li><li>Hemat energi.</li><li>Menyala otomatis saat malam.</li><li>Perawatan sangat mudah.</li><li>Cocok untuk taman, halaman rumah, dan jalur pejalan kaki.</li></ul>",
     "images": [
       "../p2.png"
     ],
