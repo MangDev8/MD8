@@ -58,7 +58,7 @@ nav {
   background: linear-gradient(90deg, #FF7A00, #007BFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
+  letter-spacing: 1.9px;
 }
 
 .menu-icon {
